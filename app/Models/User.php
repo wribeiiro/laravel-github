@@ -20,11 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password',
-        'git_id',
-        'oauth_type',
-        'avatar',
-        'nickname'
+        'password'
     ];
 
     /**
@@ -45,4 +41,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function social()
+    {
+        return $this->hasMany(SocialUser::class);
+    }
 }

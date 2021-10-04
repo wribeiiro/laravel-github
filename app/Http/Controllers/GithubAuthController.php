@@ -1,5 +1,7 @@
 <?php
 namespace App\Http\Controllers;
+
+use App\Models\SocialUser;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Exception;
@@ -9,17 +11,20 @@ use Auth;
 class GithubAuthController extends Controller
 {
 
-    public function githubAuth()
+    public function auth()
     {
         return Socialite::driver('github')->redirect();
     }
        
-    public function callbackGithub()
+    public function callback()
     {
         try {
-            $githubUser = Socialite::driver('github')->user();
-            $findUser = User::where('git_id', $githubUser->id)->first();
-      
+            $githubUser = Socialite::driver('github')->stateless()->user();
+            
+            $findUser = User::with(['social' => function($q) {
+                $q->where('social_type', '=', 'github');
+            }])->where('email', $githubUser->email)->first();
+
             if ($findUser) {
                 Auth::login($findUser);
                 return redirect('/home');
@@ -28,19 +33,27 @@ class GithubAuthController extends Controller
             $user = User::create([
                 'name' => $githubUser->name,
                 'email' => $githubUser->email,
-                'git_id'=> $githubUser->id,
-                'oauth_type'=> 'github_oauth',
-                'avatar' => $githubUser->avatar,
-                'nickname' => $githubUser->nickname,
                 'password' => encrypt('555555555555'),
             ]);
-    
-            Auth::login($user);
+
+            $socialUser = SocialUser::create([
+                'user_id' => $user->id,
+                'social_id' => $githubUser->id,
+                'social_type' => 'github',
+                'avatar' => $githubUser->avatar,
+                'nickname' => $githubUser->nickname,
+            ]);
+
+            $findUser = User::with(['social' => function($q) {
+                $q->where('social_type', '=', 'github');
+            }])->where('email', $githubUser->email)->first();
+
+            Auth::login($findUser);
 
             return redirect('/home');
 
         } catch (Exception $e) {
-            dd($e->getMessage());
+            dd($e);
         }
     }
 }

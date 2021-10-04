@@ -1,0 +1,66 @@
+:root {
+	--black: #121214;
+	--dark-gray: #212025;
+	--white: #FFFFFF;
+	--text: #E1E1E6;
+	--purple: #9466FF;
+	--vue: #04D361;
+	--red: #ec5453;
+	--npurple: #373238;
+	--yellow: #f9bf3f;
+	--synth-purple: #F222FF;
+	--synth-blue: #011EFE;
+    --discord: #5865F2;
+}
+
+body,
+.dropdown-menu,
+.bg-black,
+input {
+    background: var(--black) !important;
+}
+
+.btn-vue {
+    background-color: var(--vue);
+    border: solid 1px var(--vue);
+}
+
+.text-vue,
+.text-vue:hover {
+    color: var(--vue);
+    text-decoration: none;
+}
+
+input:focus {
+    border: solid 1px var(--vue) !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.card, .card-header, .card-body {
+    border-bottom: none;
+    background-color: var(--dark-gray);
+    color: var(--text);
+}
+
+.progress-bar {
+    background-color: var(--vue);
+    border: solid 1px var(--vue);
+}
+
+.text {
+    color: var(--text);
+}
+
+.text-discord {
+    color: var(--discord);
+}
+
+a {
+    text-decoration: none !important;
+}
+
+table > thead,
+table > tbody {
+    color: var(--text);
+}
