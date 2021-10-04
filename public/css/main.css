@@ -11,6 +11,10 @@
 	--synth-purple: #F222FF;
 	--synth-blue: #011EFE;
     --discord: #5865F2;
+    --gold: #af9500;
+    --silver: #d7d7d7;
+    --bronze: #6a3805;
+    --synth: #ff248a;
 }
 
 body,
@@ -18,11 +22,17 @@ body,
 .bg-black,
 input {
     background: var(--black) !important;
+    font-family: 'DM Sans', sans-serif;
 }
 
 .btn-vue {
     background-color: var(--vue);
     border: solid 1px var(--vue);
+}
+
+.btn-purple {
+    background-color: var(--purple);
+    border: solid 1px var(--purple);
 }
 
 .text-vue,
@@ -31,8 +41,20 @@ input {
     text-decoration: none;
 }
 
-input:focus {
-    border: solid 1px var(--vue) !important;
+.text-synth,
+.text-synth:hover {
+    color: var(--synth);
+    text-decoration: none;
+}
+
+.text-purple,
+.text-purple:hover {
+    color: var(--purple);
+    text-decoration: none;
+}
+
+.form-control {
+    border: solid 2px var(--purple) !important;
     outline: none !important;
     box-shadow: none !important;
 }
@@ -63,4 +85,24 @@ a {
 table > thead,
 table > tbody {
     color: var(--text);
+}
+
+.trophy-gold {
+    color: var(--gold);
+}
+
+.trophy-silver {
+    color: var(--silver);
+}
+
+.trophy-bronze {
+    color: var(--bronze);
+}
+
+.border-card {
+    border-top: solid 4px var(--purple);
+}
+
+i {
+    cursor: pointer;
 }

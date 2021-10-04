@@ -2,11 +2,13 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
+    <div class="row justify-content-center mt-5">
+        <h2 class="text">Welcome again!</h2>
+    </div>
+    
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8 col-12">
+            <div class="card border-card">
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -39,7 +41,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-vue">
+                                <button type="submit" class="btn btn-purple">
                                     {{ __('Login') }}
                                 </button>
 
@@ -53,8 +55,8 @@
 
                         <div class="form-group row mb-0 mt-3">
                             <div class="col-md-12 text-center">
-                                <a href="{{ url('github/auth') }}" class="btn btn-vue">
-                                   <i class="fab fa-github"></i> {{ __('Login with Github') }}
+                                <a href="{{ url('github/auth') }}" class="btn btn-purple">
+                                   <i class="fab fa-github"></i> {{ __('Connect with Github') }}
                                 </a>
                             </div>
                         </div>

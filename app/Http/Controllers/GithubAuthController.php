@@ -1,14 +1,14 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Interfaces\SocialAuthInterface;
 use App\Models\SocialUser;
-use Illuminate\Http\Request;
 use App\Models\User;
 use Exception;
 use Socialite;
 use Auth;
 
-class GithubAuthController extends Controller
+class GithubAuthController extends Controller implements SocialAuthInterface
 {
 
     public function auth()
@@ -36,7 +36,7 @@ class GithubAuthController extends Controller
                 'password' => encrypt('555555555555'),
             ]);
 
-            $socialUser = SocialUser::create([
+            SocialUser::create([
                 'user_id' => $user->id,
                 'social_id' => $githubUser->id,
                 'social_type' => 'github',
@@ -51,6 +51,24 @@ class GithubAuthController extends Controller
             Auth::login($findUser);
 
             return redirect('/home');
+
+        } catch (Exception $e) {
+            dd($e);
+        }
+    }
+
+    public function logout()
+    {
+        try {
+            $findSocialUser = SocialUser::where([
+                'user_id' => Auth::user()->id,
+                'social_type' => 'github'
+            ]);
+      
+            if ($findSocialUser) {
+                $findSocialUser->delete();
+                return redirect('/home');
+            } 
 
         } catch (Exception $e) {
             dd($e);

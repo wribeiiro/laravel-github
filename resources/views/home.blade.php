@@ -2,11 +2,19 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-8">
-            <div class="card p-2">
+    
+    <div class="row mt-5">
+        <div class="col-12 col-sm-12 col-md-8 col-lg-8 mb-2">
+            <h2 class="text">My Dashboard</h2>
+            <hr>
+        </div>
+    </div>
+    
+    <div class="row mt-3">
+        <div class="col-12 col-sm-12 col-md-8 col-lg-8 mb-2">
+            <div class="card p-2 border-card">
                 <div class="card-body text-center">
-                    <img class="rounded-circle text-center" width="120px" src="{{Auth::user()->social[0]->avatar}}">
+                    <img class="rounded-circle text-center" width="120px" src="{{ isset(Auth::user()->social[0]->avatar) ? Auth::user()->social[0]->avatar : 'https://avatars.githubusercontent.com/u/47313528?v=4'}}">
                 </div>
 
                 <div class="card-body">
@@ -16,7 +24,7 @@
                         </div>
 
                         <div class="flex-item">
-                            <h4 class="text">Level 4</h4>
+                            <h5 class="text">Level 4</h4>
                         </div>
                     </div>
 
@@ -29,13 +37,15 @@
 
                     <div class="d-flex flex-row justify-content-between mt-2">
                         <div class="flex-item">
-                            <h4 class="text">Xp 161/300</h4>
+                            <h5 class="text">Xp 161/300</h5>
                         </div>
                         <div class="flex-item">
-                            <h4 class="text">53%</h4>
+                            <h5 class="text">53%</h5>
                         </div>
                     </div>
                 </div>
+
+                <hr>
 
                 <div class="card-body d-flex flex-row justify-content-around">
                     <div class="flex-item text-center">
@@ -43,6 +53,23 @@
                             <i class="fa fa-trash fa-2x"></i> <br>
                             <span class="text">Deletar Conta</span>
                         </a>
+                    </div>
+
+                    <div class="flex-item text-center">
+
+                        @if (isset(Auth::user()->social[0]) && Auth::user()->social[0]->social_type == 'github')
+                            <a href="{{ url('github/logout') }}" class="text">
+                                <i class="fab fa-github fa-2x"></i> 
+                                <br>
+                                <span class="text">Desconectar</span>
+                            </a>
+                        @else
+                            <a href="{{ url('github/auth') }}" class="text-discord">
+                                <i class="fab fa-discord fa-2x"></i> 
+                                <br>
+                                <span class="text">Conectar com Github</span>
+                            </a>
+                        @endif
                     </div>
 
                     <div class="flex-item text-center">
@@ -65,48 +92,89 @@
             </div>
         </div>
 
-        <div class="col-4">
-            <div class="card p-2">
-                <h4 class="text-vue">Ranking</h4>
+        <div class="col-12 col-sm-12 col-md-4 col-lg-4 mb-2">
+            <div class="card p-2 border-card">
+                <h4 class="text-vue mt-3">Ranking</h4>
                 <table class="table-sm table table-borderless">
                     <thead>
-                        <th>#Position</th>
+                        <th>#</th>
+                        <th style="text-align: center">#Position</th>
                         <th>#Name</th>
                         <th>#XP</th>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1° <i class="fas fa-trophy"></i></td>
+                            <td><i class="fas fa-trophy trophy-gold"></i></td>
+                            <td align="center">1°</td>
                             <td>Well</td>
                             <td>46546</td>
                         </tr>
                         <tr>
-                            <td>2° <i class="fas fa-trophy"></i></td>
+                            <td><i class="fas fa-trophy trophy-silver"></i></td>
+                            <td align="center">2°</td>
                             <td>Leandro</td>
                             <td>41755</td>
                         </tr>
                         <tr>
-                            <td>3° <i class="fas fa-trophy"></i></td>
+                            <td><i class="fas fa-trophy trophy-bronze"></i></td>
+                            <td align="center">3°</td>
                             <td>Lipszera</td>
                             <td>40484</td>
                         </tr>
                         <tr>
-                            <td>4°</td>
+                            <td><i class="fas fa-medal trophy-gold"></i></td>
+                            <td align="center">4°</td>
                             <td>Herick</td>
                             <td>39122</td>
                         </tr>
                         <tr>
-                            <td>5°</td>
+                            <td><i class="fas fa-medal trophy-gold"></i></td>
+                            <td align="center">5°</td>
                             <td>Luiz</td>
                             <td>40484</td>
                         </tr>
                         <tr>
-                            <td>6°</td>
+                            <td><i class="fas fa-medal trophy-gold"></i></td>
+                            <td align="center">6°</td>
                             <td>João</td>
                             <td>30433</td>
                         </tr>
                     </tbody>
                 </table>
+            </div>
+
+            <div class="card p-2 border-card mt-2">
+                <h4 class="text-purple mt-3">Achievements</h4>
+
+                <div class="card-body d-flex flex-row justify-content-around">
+                    <div class="flex-item text-center">
+                        <i class="fab fa-html5 fa-2x" title="HTML"></i> 
+                    </div>
+                    <div class="flex-item text-center">
+                        <i class="fab fa-css3-alt fa-2x" title="CSS"></i> 
+                    </div>
+                    <div class="flex-item text-center">
+                        <i class="fab fa-js-square fa-2x" title="Javascript"></i> 
+                    </div>
+                    <div class="flex-item text-center">
+                        <i class="fab fa-vuejs fa-2x" title="Javascript"></i> 
+                    </div>
+                </div>
+
+                <div class="card-body d-flex flex-row justify-content-around">
+                    <div class="flex-item text-center">
+                        <i class="fab fa-php fa-2x" title="PHP"></i> 
+                    </div>
+                    <div class="flex-item text-center">
+                        <i class="fab fa-laravel fa-2x" title="Laravel"></i> 
+                    </div>
+                    <div class="flex-item text-center">
+                        <i class="fab fa-python fa-2x" title="Python"></i> 
+                    </div>
+                    <div class="flex-item text-center">
+                        <i class="fab fa-react fa-2x" title="React"></i> 
+                    </div>
+                </div>
             </div>
         </div>
     </div>
