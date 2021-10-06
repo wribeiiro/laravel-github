@@ -3,16 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\ExperienceService;
+use stdClass;
 
 class HomeController extends Controller
 {
+    /**
+     * @var ExperienceService
+     */
+    private $service;
+    
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(ExperienceService $experience)
     {
+        $this->service = $experience;
         $this->middleware('auth');
     }
 
@@ -23,6 +31,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $experience = new stdClass;
+        $experience->level = $this->service->myLevel();
+        $experience->xp = $this->service->myXp();
+        $experience->limitup = $this->service->limitToUp();
+        $experience->progress = $this->service->calculateProgress();
+
+        return view('home', compact('experience'));
     }
 }

@@ -24,23 +24,23 @@
                         </div>
 
                         <div class="flex-item">
-                            <h5 class="text">Level 4</h4>
+                            <h5 class="text">Level {{$experience->level}}</h4>
                         </div>
                     </div>
 
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                        aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                            <span class="sr-only">70% Complete</span>
+                        <div class="progress-bar" role="progressbar" aria-valuenow="{{$experience->progress}}"
+                        aria-valuemin="0" aria-valuemax="100" style="width:{{$experience->progress}}%">
+                            <span class="sr-only">{{$experience->progress}}% Complete</span>
                         </div>
                     </div> 
 
                     <div class="d-flex flex-row justify-content-between mt-2">
                         <div class="flex-item">
-                            <h5 class="text">Xp 161/300</h5>
+                            <h5 class="text">Xp {{$experience->xp}}/{{$experience->limitup}}</h5>
                         </div>
                         <div class="flex-item">
-                            <h5 class="text">53%</h5>
+                            <h5 class="text">{{$experience->progress}}%</h5>
                         </div>
                     </div>
                 </div>
