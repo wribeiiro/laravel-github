@@ -34,7 +34,7 @@ class HomeController extends Controller
         $experience = new stdClass;
         $experience->level = $this->service->myLevel();
         $experience->xp = $this->service->myXp();
-        $experience->limitup = $this->service->limitToUp();
+        $experience->xpnextlevel = $this->service->totalXpNextLevel();
         $experience->progress = $this->service->calculateProgress();
 
         return view('home', compact('experience'));

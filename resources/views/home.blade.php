@@ -37,7 +37,7 @@
 
                     <div class="d-flex flex-row justify-content-between mt-2">
                         <div class="flex-item">
-                            <h5 class="text">Xp {{$experience->xp}}/{{$experience->limitup}}</h5>
+                            <h5 class="text">Xp {{$experience->xp}}/{{$experience->xpnextlevel}}</h5>
                         </div>
                         <div class="flex-item">
                             <h5 class="text">{{$experience->progress}}%</h5>
@@ -100,44 +100,44 @@
                         <th>#</th>
                         <th style="text-align: center">#Position</th>
                         <th>#Name</th>
-                        <th>#XP</th>
+                        <th style="text-align: center">#XP</th>
                     </thead>
                     <tbody>
                         <tr>
                             <td><i class="fas fa-trophy trophy-gold"></i></td>
                             <td align="center">1°</td>
                             <td>Well</td>
-                            <td>46546</td>
+                            <td align="right">46546</td>
                         </tr>
                         <tr>
                             <td><i class="fas fa-trophy trophy-silver"></i></td>
                             <td align="center">2°</td>
                             <td>Leandro</td>
-                            <td>41755</td>
+                            <td align="right">41755</td>
                         </tr>
                         <tr>
                             <td><i class="fas fa-trophy trophy-bronze"></i></td>
                             <td align="center">3°</td>
                             <td>Lipszera</td>
-                            <td>40484</td>
+                            <td align="right">40484</td>
                         </tr>
                         <tr>
                             <td><i class="fas fa-medal trophy-gold"></i></td>
                             <td align="center">4°</td>
                             <td>Herick</td>
-                            <td>39122</td>
+                            <td align="right">39122</td>
                         </tr>
                         <tr>
                             <td><i class="fas fa-medal trophy-gold"></i></td>
                             <td align="center">5°</td>
                             <td>Luiz</td>
-                            <td>40484</td>
+                            <td align="right">40484</td>
                         </tr>
                         <tr>
                             <td><i class="fas fa-medal trophy-gold"></i></td>
                             <td align="center">6°</td>
                             <td>João</td>
-                            <td>30433</td>
+                            <td align="right">30433</td>
                         </tr>
                     </tbody>
                 </table>

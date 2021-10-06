@@ -6,7 +6,7 @@ use Auth;
 
 class ExperienceService
 {
-    const LIMIT_XP_TO_UP = [1200, 2500, 4000, 6750, 7345, 8123, 9000, 12000, 15000, 20000];
+    const BASE_NEXT_XP = 250;
 
     public function __construct()
     {
@@ -30,7 +30,7 @@ class ExperienceService
      */
     public function myLevel(): int 
     {
-        return 1;
+        return floor(log($this->myXp() / self::BASE_NEXT_XP + 1, 2));
     }
 
     /**
@@ -40,7 +40,7 @@ class ExperienceService
      */
     public function limitToUp(): int
     {
-        return 1200;
+        return self::BASE_NEXT_XP * pow(2, $this->myLevel() -1);
     }
 
     /**
@@ -50,6 +50,17 @@ class ExperienceService
      */
     public function calculateProgress(): int
     {
-        return ($this->myXp() / $this->limitToUp()) * 100;
+        return ($this->myXp() / $this->totalXpNextLevel()) * 100;
+    }
+
+    /**
+     * Retrieve the xp to up to next level
+     *
+     * @return integer
+     */
+    public function totalXpNextLevel(): int
+    {
+        $totalXpNextLevel = self::BASE_NEXT_XP * (pow(2, $this->myLevel() +1) -1);
+        return $totalXpNextLevel - $this->myXp();
     }
 }
