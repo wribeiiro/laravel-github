@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Interfaces\SocialAuthInterface;
-use InvalidArgumentException;
+use App\Exceptions\SocialAuthNotFoundException;
 
 class SocialAuthServiceFactory
 {
@@ -15,7 +15,7 @@ class SocialAuthServiceFactory
             case 'github':
                 return new GithubAuthService();
             default:
-                throw new InvalidArgumentException('Auth service not implemented');
+                throw new SocialAuthNotFoundException('SocialAuth service not implemented');
                 break;
         }
     }
