@@ -58,13 +58,13 @@
                     <div class="flex-item text-center">
 
                         @if (isset(Auth::user()->social[0]) && Auth::user()->social[0]->social_type == 'github')
-                            <a href="{{ url('github/logout') }}" class="text">
+                            <a href="{{ url('social/logout', ['socialName' => 'github']) }}" class="text">
                                 <i class="fab fa-github fa-2x"></i> 
                                 <br>
                                 <span class="text">Desconectar</span>
                             </a>
                         @else
-                            <a href="{{ url('github/auth') }}" class="text-discord">
+                            <a href="{{ url('social/auth', ['socialName' => 'github']) }}" class="text-discord">
                                 <i class="fab fa-discord fa-2x"></i> 
                                 <br>
                                 <span class="text">Conectar com Github</span>
@@ -75,13 +75,13 @@
                     <div class="flex-item text-center">
 
                         @if (isset(Auth::user()->social[1]) && Auth::user()->social[1]->social_type == 'discord')
-                            <a href="{{ url('discord/logout') }}" class="text-discord">
+                            <a href="{{ url('social/logout', ['socialName' => 'discord']) }}" class="text-discord">
                                 <i class="fab fa-discord fa-2x"></i> 
                                 <br>
                                 <span class="text">Desconectar</span>
                             </a>
                         @else
-                            <a href="{{ url('discord/auth') }}" class="text-discord">
+                            <a href="{{ url('social/auth', ['socialName' => 'discord']) }}" class="text-discord">
                                 <i class="fab fa-discord fa-2x"></i> 
                                 <br>
                                 <span class="text">Conectar com Discord</span>

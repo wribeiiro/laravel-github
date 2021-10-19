@@ -1,34 +1,33 @@
 <?php
-namespace App\Http\Controllers;
+
+namespace App\Services;
 
 use App\Interfaces\SocialAuthInterface;
-use App\Models\SocialUser;
-use App\Models\User;
-use Exception;
+use App\Models\{User, SocialUser};
 use Socialite;
+use Exception;
 use Auth;
 
-class GithubAuthController extends Controller implements SocialAuthInterface
+class GithubAuthService implements SocialAuthInterface
 {
-
     public function auth()
     {
         return Socialite::driver('github')->redirect();
     }
-       
+
     public function callback()
     {
         try {
             $githubUser = Socialite::driver('github')->stateless()->user();
-            
-            $findUser = User::with(['social' => function($q) {
+
+            $findUser = User::with(['social' => function ($q) {
                 $q->where('social_type', '=', 'github');
             }])->where('email', $githubUser->email)->first();
 
             if ($findUser) {
                 Auth::login($findUser);
                 return redirect('/home');
-            } 
+            }
 
             $user = User::create([
                 'name' => $githubUser->name,
@@ -44,14 +43,13 @@ class GithubAuthController extends Controller implements SocialAuthInterface
                 'nickname' => $githubUser->nickname,
             ]);
 
-            $findUser = User::with(['social' => function($q) {
+            $findUser = User::with(['social' => function ($q) {
                 $q->where('social_type', '=', 'github');
             }])->where('email', $githubUser->email)->first();
 
             Auth::login($findUser);
 
             return redirect('/home');
-
         } catch (Exception $e) {
             dd($e);
         }
@@ -64,12 +62,11 @@ class GithubAuthController extends Controller implements SocialAuthInterface
                 'user_id' => Auth::user()->id,
                 'social_type' => 'github'
             ]);
-      
+
             if ($findSocialUser) {
                 $findSocialUser->delete();
                 return redirect('/home');
-            } 
-
+            }
         } catch (Exception $e) {
             dd($e);
         }

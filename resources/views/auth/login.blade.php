@@ -55,7 +55,7 @@
 
                         <div class="form-group row mb-0 mt-3">
                             <div class="col-md-12 text-center">
-                                <a href="{{ url('github/auth') }}" class="btn btn-purple">
+                                <a href="{{ url('social/auth', ['socialName' => 'github']) }}" class="btn btn-purple">
                                    <i class="fab fa-github"></i> {{ __('Connect with Github') }}
                                 </a>
                             </div>

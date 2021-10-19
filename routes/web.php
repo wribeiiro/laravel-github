@@ -25,3 +25,8 @@ Route::get('github/logout', [App\Http\Controllers\GithubAuthController::class, '
 Route::get('discord/auth', [App\Http\Controllers\DiscordAuthController::class, 'auth']);
 Route::get('discord/callback', [App\Http\Controllers\DiscordAuthController::class, 'callback']);
 Route::get('discord/logout', [App\Http\Controllers\DiscordAuthController::class, 'logout']);
+
+
+Route::get('social/auth/{socialName}', [App\Http\Controllers\SocialAuthController::class, 'auth']);
+Route::get('social/callback/{socialName}', [App\Http\Controllers\SocialAuthController::class, 'callback']);
+Route::get('social/logout/{socialName}', [App\Http\Controllers\SocialAuthController::class, 'logout']);

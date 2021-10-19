@@ -1,17 +1,13 @@
 <?php
 
 namespace App\Services;
+
 use App\Models\ActivityUser;
 use Auth;
 
 class ExperienceService
 {
     const BASE_NEXT_XP = 250;
-
-    public function __construct()
-    {
-        
-    }
 
     /**
      * Retrieve current Experience
@@ -22,13 +18,13 @@ class ExperienceService
     {
         return ActivityUser::where('user_id', '=', Auth::user()->id)->count() * 10;
     }
-    
+
     /**
      * Retrieve current Level
      *
      * @return integer
      */
-    public function myLevel(): int 
+    public function myLevel(): int
     {
         return floor(log($this->myXp() / self::BASE_NEXT_XP + 1, 2));
     }
@@ -40,7 +36,7 @@ class ExperienceService
      */
     public function limitToUp(): int
     {
-        return self::BASE_NEXT_XP * pow(2, $this->myLevel() -1);
+        return self::BASE_NEXT_XP * pow(2, $this->myLevel() - 1);
     }
 
     /**
@@ -60,7 +56,7 @@ class ExperienceService
      */
     public function totalXpNextLevel(): int
     {
-        $totalXpNextLevel = self::BASE_NEXT_XP * (pow(2, $this->myLevel() +1) -1);
+        $totalXpNextLevel = self::BASE_NEXT_XP * (pow(2, $this->myLevel() + 1) - 1);
         return $totalXpNextLevel - $this->myXp();
     }
 }
