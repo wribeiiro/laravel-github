@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Interfaces\SocialAuthInterface;
 use App\Models\{User, SocialUser};
-use Socialite;
+use Laravel\Socialite\Facades\Socialite; 
 use Exception;
 use Auth;
 

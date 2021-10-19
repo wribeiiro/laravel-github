@@ -18,14 +18,6 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('github/auth', [App\Http\Controllers\GithubAuthController::class, 'auth']);
-Route::get('github/callback', [App\Http\Controllers\GithubAuthController::class, 'callback']);
-Route::get('github/logout', [App\Http\Controllers\GithubAuthController::class, 'logout']);
-
-Route::get('discord/auth', [App\Http\Controllers\DiscordAuthController::class, 'auth']);
-Route::get('discord/callback', [App\Http\Controllers\DiscordAuthController::class, 'callback']);
-Route::get('discord/logout', [App\Http\Controllers\DiscordAuthController::class, 'logout']);
-
 
 Route::get('social/auth/{socialName}', [App\Http\Controllers\SocialAuthController::class, 'auth']);
 Route::get('social/callback/{socialName}', [App\Http\Controllers\SocialAuthController::class, 'callback']);

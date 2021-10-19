@@ -4,9 +4,9 @@ namespace App\Services;
 
 use App\Interfaces\SocialAuthInterface;
 use App\Models\{User, SocialUser};
-use Socialite;
 use Exception;
 use Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 class DiscordAuthService implements SocialAuthInterface
 {
