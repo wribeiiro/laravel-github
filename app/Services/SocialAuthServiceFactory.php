@@ -9,14 +9,10 @@ class SocialAuthServiceFactory
 {
     public function getClass(string $authName): SocialAuthInterface
     {
-        switch (strtolower($authName)) {
-            case 'discord':
-                return new DiscordAuthService();
-            case 'github':
-                return new GithubAuthService();
-            default:
-                throw new SocialAuthNotFoundException('SocialAuth service not implemented');
-                break;
-        }
+        return match (strtolower($authName)) {
+            'discord' => new DiscordAuthService(),
+            'github' => new GithubAuthService(),
+            default => throw new SocialAuthNotFoundException('SocialAuth service not implemented')
+        };
     }
 }
