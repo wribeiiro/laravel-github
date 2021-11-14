@@ -2,14 +2,14 @@
 
 @section('content')
 <div class="container">
-    
+
     <div class="row mt-5">
         <div class="col-12 col-sm-12 col-md-8 col-lg-8 mb-2">
             <h2 class="text">My Dashboard</h2>
             <hr>
         </div>
     </div>
-    
+
     <div class="row mt-3">
         <div class="col-12 col-sm-12 col-md-8 col-lg-8 mb-2">
             <div class="card p-2 border-card">
@@ -33,7 +33,7 @@
                         aria-valuemin="0" aria-valuemax="100" style="width:{{$experience->progress}}%">
                             <span class="sr-only">{{$experience->progress}}% Complete</span>
                         </div>
-                    </div> 
+                    </div>
 
                     <div class="d-flex flex-row justify-content-between mt-2">
                         <div class="flex-item">
@@ -59,13 +59,13 @@
 
                         @if (isset(Auth::user()->social[0]) && Auth::user()->social[0]->social_type == 'github')
                             <a href="{{ url('social/logout', ['socialName' => 'github']) }}" class="text">
-                                <i class="fab fa-github fa-2x"></i> 
+                                <i class="fab fa-github fa-2x"></i>
                                 <br>
                                 <span class="text">Desconectar</span>
                             </a>
                         @else
                             <a href="{{ url('social/auth', ['socialName' => 'github']) }}" class="text-discord">
-                                <i class="fab fa-discord fa-2x"></i> 
+                                <i class="fab fa-discord fa-2x"></i>
                                 <br>
                                 <span class="text">Conectar com Github</span>
                             </a>
@@ -76,13 +76,13 @@
 
                         @if (isset(Auth::user()->social[1]) && Auth::user()->social[1]->social_type == 'discord')
                             <a href="{{ url('social/logout', ['socialName' => 'discord']) }}" class="text-discord">
-                                <i class="fab fa-discord fa-2x"></i> 
+                                <i class="fab fa-discord fa-2x"></i>
                                 <br>
                                 <span class="text">Desconectar</span>
                             </a>
                         @else
                             <a href="{{ url('social/auth', ['socialName' => 'discord']) }}" class="text-discord">
-                                <i class="fab fa-discord fa-2x"></i> 
+                                <i class="fab fa-discord fa-2x"></i>
                                 <br>
                                 <span class="text">Conectar com Discord</span>
                             </a>
@@ -103,42 +103,14 @@
                         <th style="text-align: center">#XP</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><i class="fas fa-trophy trophy-gold"></i></td>
-                            <td align="center">1°</td>
-                            <td>Well</td>
-                            <td align="right">46546</td>
-                        </tr>
-                        <tr>
-                            <td><i class="fas fa-trophy trophy-silver"></i></td>
-                            <td align="center">2°</td>
-                            <td>Leandro</td>
-                            <td align="right">41755</td>
-                        </tr>
-                        <tr>
-                            <td><i class="fas fa-trophy trophy-bronze"></i></td>
-                            <td align="center">3°</td>
-                            <td>Lipszera</td>
-                            <td align="right">40484</td>
-                        </tr>
-                        <tr>
-                            <td><i class="fas fa-medal trophy-gold"></i></td>
-                            <td align="center">4°</td>
-                            <td>Herick</td>
-                            <td align="right">39122</td>
-                        </tr>
-                        <tr>
-                            <td><i class="fas fa-medal trophy-gold"></i></td>
-                            <td align="center">5°</td>
-                            <td>Luiz</td>
-                            <td align="right">40484</td>
-                        </tr>
-                        <tr>
-                            <td><i class="fas fa-medal trophy-gold"></i></td>
-                            <td align="center">6°</td>
-                            <td>João</td>
-                            <td align="right">30433</td>
-                        </tr>
+                        @foreach(\App\Models\User::all() as $key => $user)
+                            <tr>
+                                <td><img class="rounded-circle" src="https://i.stack.imgur.com/frlIf.png" width="16" alt="avatar"></td>
+                                <td align="center">{{$key}}</td>
+                                <td>{{$user->name}}</td>
+                                <td align="right">{{rand(1111, 999999)}}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -148,31 +120,31 @@
 
                 <div class="card-body d-flex flex-row justify-content-around">
                     <div class="flex-item text-center">
-                        <i class="fab fa-html5 fa-2x" title="HTML"></i> 
+                        <i class="fab fa-html5 fa-2x" title="HTML"></i>
                     </div>
                     <div class="flex-item text-center">
-                        <i class="fab fa-css3-alt fa-2x" title="CSS"></i> 
+                        <i class="fab fa-css3-alt fa-2x" title="CSS"></i>
                     </div>
                     <div class="flex-item text-center">
-                        <i class="fab fa-js-square fa-2x" title="Javascript"></i> 
+                        <i class="fab fa-js-square fa-2x" title="Javascript"></i>
                     </div>
                     <div class="flex-item text-center">
-                        <i class="fab fa-vuejs fa-2x" title="Javascript"></i> 
+                        <i class="fab fa-vuejs fa-2x" title="Javascript"></i>
                     </div>
                 </div>
 
                 <div class="card-body d-flex flex-row justify-content-around">
                     <div class="flex-item text-center">
-                        <i class="fab fa-php fa-2x" title="PHP"></i> 
+                        <i class="fab fa-php fa-2x" title="PHP"></i>
                     </div>
                     <div class="flex-item text-center">
-                        <i class="fab fa-laravel fa-2x" title="Laravel"></i> 
+                        <i class="fab fa-laravel fa-2x" title="Laravel"></i>
                     </div>
                     <div class="flex-item text-center">
-                        <i class="fab fa-python fa-2x" title="Python"></i> 
+                        <i class="fab fa-python fa-2x" title="Python"></i>
                     </div>
                     <div class="flex-item text-center">
-                        <i class="fab fa-react fa-2x" title="React"></i> 
+                        <i class="fab fa-react fa-2x" title="React"></i>
                     </div>
                 </div>
             </div>
