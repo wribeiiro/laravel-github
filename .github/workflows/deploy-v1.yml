@@ -1,0 +1,48 @@
+on:
+  push:
+    branches:
+      - master
+
+name: 🚀 Deploy on environment test
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code...
+        uses: actions/checkout@v2
+
+      - name: 📂 Synchronizing files...
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: ${{ secrets.ftp_host }}
+          username: ${{ secrets.ftp_user }}
+          password: ${{ secrets.ftp_password }}
+          server-dir: public_html/laravel-github/
+          exclude: .git*
+            - **.git*
+            - .git*/**
+            -  **/.git*/**
+            - node_modules/**
+            - node_modules/**/*
+            - vendor/**
+            - vendor/**/*
+            - public/index.php
+            - .env
+
+      - name: 📂 Moving public folder and files...
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: ${{ secrets.ftp_host }}
+          username: ${{ secrets.ftp_user }}
+          password: ${{ secrets.ftp_password }}
+          server-dir: public_html/laravel-github/
+          local-dir: ./public/
+          exclude: .git*
+            - index.php
+            - .htaccess
+            - favicon.ico
+            - mix-manifest-.json
+            - robots.txt
+            - web.config
+          state-name: /.ftp-deploy-sync-state_2.json

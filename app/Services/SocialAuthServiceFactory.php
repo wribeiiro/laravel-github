@@ -7,6 +7,9 @@ use App\Exceptions\SocialAuthNotFoundException;
 
 class SocialAuthServiceFactory
 {
+    /**
+     * @throws SocialAuthNotFoundException
+     */
     public function getClass(string $authName): SocialAuthInterface
     {
         return match (strtolower($authName)) {
