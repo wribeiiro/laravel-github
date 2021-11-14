@@ -106,7 +106,7 @@
                         @foreach(\App\Models\User::all() as $key => $user)
                             <tr>
                                 <td><img class="rounded-circle" src="https://i.stack.imgur.com/frlIf.png" width="16" alt="avatar"></td>
-                                <td align="center">{{$key}}</td>
+                                <td align="center">{{$key + 1}}</td>
                                 <td>{{$user->name}}</td>
                                 <td align="right">{{rand(1111, 999999)}}</td>
                             </tr>
