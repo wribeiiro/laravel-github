@@ -30,7 +30,9 @@
                                 <div class="feed-icon px-2"><i class="fa fa-ellipsis-v text-black-50"></i></div>
                             </div>
                         </div>
-                        <div class="p-2 px-3"><span>{{$post->content}}</span></div>
+                        <div class="p-2 px-3">
+                            {!! $post->content !!}
+                        </div>
                         <div class="d-flex justify-content-end socials p-2 py-3"><i class="fa fa-thumbs-up"></i><i class="fa fa-comments-o"></i><i class="fa fa-share"></i></div>
                     </div>
 
