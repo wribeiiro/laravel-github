@@ -106,3 +106,65 @@ table > tbody {
 i {
     cursor: pointer;
 }
+
+body{
+    margin-top:20px;
+    background:#ebeef0;
+}
+
+.img-sm {
+    width: 46px;
+    height: 46px;
+}
+
+.panel {
+    box-shadow: 0 2px 0 rgba(0,0,0,0.075);
+    border-radius: 0;
+    border: 0;
+    margin-bottom: 15px;
+}
+
+.panel .panel-footer, .panel>:last-child {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.panel .panel-heading, .panel>:first-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.media-block .media-left {
+    display: block;
+    float: left;
+    margin-right: 15px;
+}
+
+.btn-icon {
+    padding-left: 9px;
+    padding-right: 9px;
+}
+
+.btn-sm, .btn-group-sm>.btn, .btn-icon.btn-sm {
+    padding: 5px 10px !important;
+}
+
+.mar-top {
+    margin-top: 15px;
+}
+
+.time {
+    font-size: 9px !important
+}
+
+.socials i {
+    margin-right: 14px;
+    font-size: 17px;
+    color: #d2c8c8;
+    cursor: pointer
+}
+
+.feed-image img {
+    width: 100%;
+    height: auto
+}

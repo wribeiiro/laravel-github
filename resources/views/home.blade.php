@@ -14,7 +14,7 @@
         <div class="col-12 col-sm-12 col-md-8 col-lg-8 mb-2">
             <div class="card p-2 border-card">
                 <div class="card-body text-center">
-                    <img class="rounded-circle text-center" width="120px" src="{{ isset(Auth::user()->social[0]->avatar) ? Auth::user()->social[0]->avatar : 'https://avatars.githubusercontent.com/u/47313528?v=4'}}">
+                    <img class="rounded-circle text-center" width="120px" src="{{ Auth::user()->social[0]->avatar ?? 'https://avatars.githubusercontent.com/u/47313528?v=4'}}">
                 </div>
 
                 <div class="card-body">
@@ -103,9 +103,9 @@
                         <th style="text-align: center">#XP</th>
                     </thead>
                     <tbody>
-                        @foreach(\App\Models\User::all() as $key => $user)
+                        @foreach($users as $key => $user)
                             <tr>
-                                <td><img class="rounded-circle" src="https://i.stack.imgur.com/frlIf.png" width="16" alt="avatar"></td>
+                                <td><img class="rounded-circle" src="{{$user->social[0]->avatar ?? 'https://avatars.githubusercontent.com/u/47313528?v=4'}}" width="16" alt="avatar"></td>
                                 <td align="center">{{$key + 1}}</td>
                                 <td>{{$user->name}}</td>
                                 <td align="right">{{rand(1111, 999999)}}</td>

@@ -12,7 +12,7 @@ class HomeController extends Controller
      * @var ExperienceService
      */
     private $service;
-    
+
     /**
      * Create a new controller instance.
      *
@@ -37,6 +37,8 @@ class HomeController extends Controller
         $experience->xpnextlevel = $this->service->totalXpNextLevel();
         $experience->progress = $this->service->calculateProgress();
 
-        return view('home', compact('experience'));
+        $users = \App\Models\User::with(['social'])->get();
+
+        return view('home', compact('experience', 'users'));
     }
 }
