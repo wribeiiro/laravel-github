@@ -48,7 +48,7 @@ class FeedController extends Controller
 
         $post = new Post([
             'user_id' => Auth::user()->id,
-            'content' => htmlspecialchars($validated['content'])
+            'content' => htmlspecialchars($validated['content'], ENT_QUOTES)
         ]);
 
         if ($post->save()) {
