@@ -108,7 +108,7 @@
                                 <td><img class="rounded-circle" src="{{$user->social[0]->avatar ?? 'https://avatars.githubusercontent.com/u/47313528?v=4'}}" width="16" alt="avatar"></td>
                                 <td align="center">{{$key + 1}}</td>
                                 <td>{{$user->name}}</td>
-                                <td align="right">{{rand(1111, 999999)}}</td>
+                                <td align="right">{{$user->xp}}</td>
                             </tr>
                         @endforeach
                     </tbody>

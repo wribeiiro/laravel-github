@@ -2,21 +2,27 @@
 
 namespace App\Services;
 
-use App\Models\ActivityUser;
-use Auth;
+use App\Models\Post;
 
 class ExperienceService
 {
     const BASE_NEXT_XP = 250;
 
+    private int $userId = 0;
+
+    public function setUserId(int $userId): self
+    {
+        $this->userId = $userId;
+        return $this;
+    }
     /**
      * Retrieve current Experience
      *
      * @return integer
      */
-    public function myXp(): int
+    public function xp(): int
     {
-        return ActivityUser::where('user_id', '=', Auth::user()->id)->count() * 10;
+        return Post::where('user_id', '=', $this->userId)->count() * 10;
     }
 
     /**
@@ -24,9 +30,9 @@ class ExperienceService
      *
      * @return integer
      */
-    public function myLevel(): int
+    public function level(): int
     {
-        return floor(log($this->myXp() / self::BASE_NEXT_XP + 1, 2));
+        return floor(log($this->xp() / self::BASE_NEXT_XP + 1, 2));
     }
 
     /**
@@ -36,7 +42,7 @@ class ExperienceService
      */
     public function limitToUp(): int
     {
-        return self::BASE_NEXT_XP * pow(2, $this->myLevel() - 1);
+        return self::BASE_NEXT_XP * pow(2, $this->level() - 1);
     }
 
     /**
@@ -46,7 +52,7 @@ class ExperienceService
      */
     public function calculateProgress(): int
     {
-        return ($this->myXp() / $this->totalXpNextLevel()) * 100;
+        return ($this->xp() / $this->totalXpNextLevel()) * 100;
     }
 
     /**
@@ -56,7 +62,7 @@ class ExperienceService
      */
     public function totalXpNextLevel(): int
     {
-        $totalXpNextLevel = self::BASE_NEXT_XP * (pow(2, $this->myLevel() + 1) - 1);
-        return $totalXpNextLevel - $this->myXp();
+        $totalXpNextLevel = self::BASE_NEXT_XP * (pow(2, $this->level() + 1) - 1);
+        return $totalXpNextLevel - $this->xp();
     }
 }

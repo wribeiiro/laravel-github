@@ -6,16 +6,27 @@
         <div class="col-md-12">
             <div class="panel p-2">
                 <div class="panel-body">
-                    <textarea class="form-control" rows="2" placeholder="What are you thinking?"></textarea>
-                    <div class="mar-top clearfix">
-                        <a class="btn btn-purple text-white btn-icon fa fa-video add-tooltip" href="#"></a>
-                        <a class="btn btn-purple text-white btn-icon fa fa-camera add-tooltip" href="#"></a>
-                        <a class="btn btn-purple text-white btn-icon fa fa-file add-tooltip" href="#"></a>
-                        <button class="btn btn-sm btn-purple text-white float-right" type="submit"><i class="fa fa-edit fa-fw"></i> Share</button>
-                    </div>
+                    <form id="formFeed" action="{{ route('feed.create') }}" method="post">
+                        @csrf
+                        <textarea id="content" name="content" class="form-control" rows="2" placeholder="What are you thinking?"></textarea>
+                        <div class="mar-top clearfix">
+                            <a class="btn btn-purple text-white btn-icon fa fa-video add-tooltip" href="#"></a>
+                            <a class="btn btn-purple text-white btn-icon fa fa-camera add-tooltip" href="#"></a>
+                            <a class="btn btn-purple text-white btn-icon fa fa-file add-tooltip" href="#"></a>
+                            <button class="btn btn-sm btn-purple text-white float-right" type="submit">
+                                <i class="fa fa-edit fa-fw"></i> Share
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
+
+        @if ($errors->feed->first('content'))
+            <script>
+                $(document).ready(() => alert('You must type something!'));
+            </script>
+        @endif
 
         <div class="col-md-12">
             <div class="feed p-2">
@@ -61,7 +72,11 @@
 </div>
 @yield('content')
     <script>
-        $(document).ready(() => {
+        $('#formFeed').on('submit', function (e) {
+            if ($('#content').val().trim() === '') {
+                alert('You must type something!');
+                return false;
+            }
         })
     </script>
 @endsection
