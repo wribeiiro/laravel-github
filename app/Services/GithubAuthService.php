@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Interfaces\SocialAuthInterface;
 use App\Models\{User, SocialUser};
-use Laravel\Socialite\Facades\Socialite; 
+use Laravel\Socialite\Facades\Socialite;
 use Exception;
 use Auth;
 
@@ -41,6 +41,7 @@ class GithubAuthService implements SocialAuthInterface
                 'social_type' => 'github',
                 'avatar' => $githubUser->avatar,
                 'nickname' => $githubUser->nickname,
+                'description' => $githubUser->user['bio']
             ]);
 
             $findUser = User::with(['social' => function ($q) {

@@ -20,6 +20,7 @@ class CreateSocialUsersTable extends Migration
             $table->string('social_type')->nullable();
             $table->string('avatar')->nullable();
             $table->string('nickname')->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

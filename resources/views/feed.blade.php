@@ -2,13 +2,20 @@
 
 @section('content')
 <div class="container">
-    <div class="d-flex justify-content-center row mt-4 mb-5">
-        <div class="col-md-12">
-            <div class="panel p-2">
-                <div class="panel-body">
+    <div class="d-flex justify-content-center row mt-4 mb-2">
+        <div class="col-md-2">
+            <div class="card p-2 bg-gray">
+                &nbsp;
+                &nbsp;
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card p-2 bg-gray">
+                <div class="card-body">
                     <form id="formFeed" action="{{ route('feed.create') }}" method="post">
                         @csrf
-                        <textarea id="content" name="content" class="form-control" rows="2" placeholder="What are you thinking?"></textarea>
+                        <textarea id="content" name="content" class="form-control" rows="2" placeholder="What are you thinking?" required></textarea>
                         <div class="mar-top clearfix">
                             <a class="btn btn-purple text-white btn-icon fa fa-video add-tooltip" href="#"></a>
                             <a class="btn btn-purple text-white btn-icon fa fa-camera add-tooltip" href="#"></a>
@@ -22,33 +29,55 @@
             </div>
         </div>
 
+        <div class="col-md-2">
+            <div class="card p-2 bg-gray">
+                &nbsp;
+                &nbsp;
+            </div>
+        </div>
+
         @if ($errors->feed->first('content'))
             <script>
                 $(document).ready(() => alert('You must type something!'));
             </script>
         @endif
+    </div>
 
-        <div class="col-md-12">
-            <div class="feed p-2">
-
+    <div class="d-flex justify-content-center row mt-4 mb-5">
+        <div class="col-md-8">
+            <div class="feed">
                 @foreach ($posts as $post)
-                    <div class="bg-white border-card mt-2">
-                        <div>
-                            <div class="d-flex flex-row justify-content-between align-items-center p-2 border-bottom">
-                                <div class="d-flex flex-row align-items-center feed-text px-2"><img class="rounded-circle" src="{{$post->user->social[0]->avatar ?? 'https://avatars.githubusercontent.com/u/47313528?v=4'}}" width="45">
-                                    <div class="d-flex flex-column flex-wrap ml-2"><span class="font-weight-bold">{{$post->user->name}}</span><span class="text-black-50 time">{{$post->created_at->diffForHumans()}}</span></div>
+                    <div class="card border-card mt-4 p-y">
+                        <div class="card-body">
+                            <div>
+                                <div class="d-flex flex-row justify-content-between align-items-center pb-2">
+                                    <div class="d-flex flex-row align-items-center feed-text">
+                                        <img class="rounded-circle" src="{{$post->user->social[0]->avatar && $post->user->social[0]->social_type == 'github' ? $post->user->social[0]->avatar : 'https://avatars.githubusercontent.com/u/47313528?v=4'}}" width="45">
+                                        <div class="d-flex flex-column flex-wrap ml-2">
+                                            <span class="font-weight-bold">{{$post->user->name}}</span>
+                                            <span class="time text">{{$post->user->social[0]->description && $post->user->social[0]->social_type == 'github' ? $post->user->social[0]->description : 'Developer in continuous progress'}}</span>
+                                            <span class="time text">{{$post->created_at->diffForHumans()}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="feed-icon">
+                                        <i class="fa fa-ellipsis-v text"></i>
+                                    </div>
                                 </div>
-                                <div class="feed-icon px-2"><i class="fa fa-ellipsis-v text-black-50"></i></div>
+                            </div>
+                            <div class="mt-3 pb-3 border-bottom-purple">
+                                @if (strpos($post->content, 'script'))
+                                    {{htmlspecialchars_decode($post->content, ENT_QUOTES)}}
+                                @else
+                                    {!! htmlspecialchars_decode($post->content, ENT_QUOTES) !!}
+                                @endif
+                            </div>
+                            <div class="d-flex justify-content-around mt-3">
+                                <span><i class="fa fa-thumbs-up"></i> Like </span>
+                                <span><i class="fas fa-comments"></i> Comment </span>
+                                <span><i class="fa fa-share"></i> Share </span>
+                                <span><i class="far fa-paper-plane"></i> Send </span>
                             </div>
                         </div>
-                        <div class="p-2 px-3">
-                            @if (strpos($post->content, 'script'))
-                                {{htmlspecialchars_decode($post->content, ENT_QUOTES)}}
-                            @else
-                                {!! htmlspecialchars_decode($post->content, ENT_QUOTES) !!}
-                            @endif
-                        </div>
-                        <div class="d-flex justify-content-end socials p-2 py-3"><i class="fa fa-thumbs-up"></i><i class="fa fa-comments-o"></i><i class="fa fa-share"></i></div>
                     </div>
                 @endforeach
 

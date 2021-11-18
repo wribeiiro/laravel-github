@@ -19,7 +19,8 @@ class SocialUser extends Model
         'social_id',
         'social_type',
         'avatar',
-        'nickname'
+        'nickname',
+        'description'
     ];
 
     public function user()
