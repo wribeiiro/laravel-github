@@ -67,9 +67,6 @@
                                 <button type="button" class="btn bg-transparent text btn-actions btn-share" id="btn-share" data-post-id="{{$post->id}}">
                                     <i class="fa fa-share text-actions"></i> Share
                                 </button>
-                                <button type="button" class="btn bg-transparent text btn-actions btn-send" id="btn-send" data-post-id="{{$post->id}}">
-                                    <i class="far fa-paper-plane text-actions"></i> Send
-                                </button>
                             </div>
                         </div>
                     </div>
