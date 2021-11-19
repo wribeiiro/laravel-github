@@ -13,13 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\FeedController::class, 'index'])->name('feed');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/me', [App\Http\Controllers\MeController::class, 'index'])->name('me');
 Route::get('/feed', [App\Http\Controllers\FeedController::class, 'index'])->name('feed');
 Route::post('/feed/create', [App\Http\Controllers\FeedController::class, 'create'])->name('feed.create');
+
+Route::post('/like/create', [App\Http\Controllers\LikeController::class, 'store'])->name('like.create');
 
 Route::get('social/auth/{socialName}', [App\Http\Controllers\SocialAuthController::class, 'auth']);
 Route::get('social/callback/{socialName}', [App\Http\Controllers\SocialAuthController::class, 'callback']);

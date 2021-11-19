@@ -33,7 +33,7 @@ class DiscordAuthService implements SocialAuthInterface
 
                 $findUser = User::with('social')->where('email', $discordUser->email)->first();
 
-                return redirect('/home');
+                return redirect('/feed');
             }
         } catch (Exception $e) {
             dd($e);
@@ -50,7 +50,7 @@ class DiscordAuthService implements SocialAuthInterface
 
             if ($findSocialUser) {
                 $findSocialUser->delete();
-                return redirect('/home');
+                return redirect('/feed');
             }
         } catch (Exception $e) {
             dd($e);

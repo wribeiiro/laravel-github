@@ -2,19 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class FeedController extends Controller
+class LikeController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -22,11 +18,7 @@ class FeedController extends Controller
      */
     public function index()
     {
-        $posts = \App\Models\Post::with(['User', 'User.social', 'Like', 'Comment'])
-            ->orderBy('created_at','DESC')
-            ->paginate(10);
-
-        return view('feed', compact('posts'));
+        //
     }
 
     /**
@@ -34,39 +26,53 @@ class FeedController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        $validator = Validator::make($request->all(), [
-            'content' => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('/feed')->withErrors($validator, 'feed');
-        }
-
-        $validated = $validator->validated();
-
-        $post = new Post([
-            'user_id' => Auth::user()->id,
-            'content' => htmlspecialchars($validated['content'], ENT_QUOTES)
-        ]);
-
-        if ($post->save()) {
-            return redirect('/feed');
-        }
-
-        redirect('/feed')->with('alert', 'Deu ruim!');
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'post_id' => 'required|int'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'data' => 'Post_id is required',
+                'status' => Response::HTTP_BAD_REQUEST
+            ]);
+        }
+
+        $payloadLike = [
+            'user_id' => Auth::user()->id,
+            'post_id' => (int) $validator->validated()['post_id']
+        ];
+
+        $hasLikeByUser = Like::where($payloadLike)->first();
+
+        if (empty($hasLikeByUser)) {
+            $like = new Like($payloadLike);
+            $like->save();
+
+            return response()->json([
+                'data' => Like::where($payloadLike)->count(),
+                'status' => Response::HTTP_CREATED
+            ]);
+        }
+
+        $hasLikeByUser->delete();
+
+        return response()->json([
+            'data' => Like::where($payloadLike)->count(),
+            'status' => Response::HTTP_NO_CONTENT
+        ]);
     }
 
     /**

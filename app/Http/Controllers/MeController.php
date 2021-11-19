@@ -7,7 +7,7 @@ use App\Services\ExperienceService;
 use stdClass;
 use Illuminate\Support\Facades\Auth;
 
-class HomeController extends Controller
+class MeController extends Controller
 {
     /**
      * Create a new controller instance.

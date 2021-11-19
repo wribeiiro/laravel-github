@@ -26,7 +26,7 @@ class GithubAuthService implements SocialAuthInterface
 
             if ($findUser) {
                 Auth::login($findUser);
-                return redirect('/home');
+                return redirect('/feed');
             }
 
             $user = User::create([
@@ -50,7 +50,7 @@ class GithubAuthService implements SocialAuthInterface
 
             Auth::login($findUser);
 
-            return redirect('/home');
+            return redirect('/feed');
         } catch (Exception $e) {
             dd($e);
         }
@@ -66,7 +66,7 @@ class GithubAuthService implements SocialAuthInterface
 
             if ($findSocialUser) {
                 $findSocialUser->delete();
-                return redirect('/home');
+                return redirect('/feed');
             }
         } catch (Exception $e) {
             dd($e);

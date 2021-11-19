@@ -2,19 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 
-class FeedController extends Controller
+class CommentController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -22,11 +13,7 @@ class FeedController extends Controller
      */
     public function index()
     {
-        $posts = \App\Models\Post::with(['User', 'User.social', 'Like', 'Comment'])
-            ->orderBy('created_at','DESC')
-            ->paginate(10);
-
-        return view('feed', compact('posts'));
+        //
     }
 
     /**
@@ -34,28 +21,9 @@ class FeedController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        $validator = Validator::make($request->all(), [
-            'content' => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('/feed')->withErrors($validator, 'feed');
-        }
-
-        $validated = $validator->validated();
-
-        $post = new Post([
-            'user_id' => Auth::user()->id,
-            'content' => htmlspecialchars($validated['content'], ENT_QUOTES)
-        ]);
-
-        if ($post->save()) {
-            return redirect('/feed');
-        }
-
-        redirect('/feed')->with('alert', 'Deu ruim!');
+        //
     }
 
     /**

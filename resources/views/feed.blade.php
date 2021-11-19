@@ -72,10 +72,18 @@
                                 @endif
                             </div>
                             <div class="d-flex justify-content-around mt-3">
-                                <span><i class="fa fa-thumbs-up"></i> Like </span>
-                                <span><i class="fas fa-comments"></i> Comment </span>
-                                <span><i class="fa fa-share"></i> Share </span>
-                                <span><i class="far fa-paper-plane"></i> Send </span>
+                                <button type="button" class="btn bg-transparent text btn-actions btn-like" id="btn-like" data-post-id="{{$post->id}}">
+                                    <i class="fa fa-thumbs-up text-actions"></i> Like <span class="badge badge" id="count-like"> {{$post->like->count()}} </span>
+                                </button>
+                                <button type="button" class="btn bg-transparent text btn-actions btn-comment" id="btn-comment" data-post-id="{{$post->id}}">
+                                    <i class="fas fa-comments text-actions"></i> Comment
+                                </button>
+                                <button type="button" class="btn bg-transparent text btn-actions btn-share" id="btn-share" data-post-id="{{$post->id}}">
+                                    <i class="fa fa-share text-actions"></i> Share
+                                </button>
+                                <button type="button" class="btn bg-transparent text btn-actions btn-send" id="btn-send" data-post-id="{{$post->id}}">
+                                    <i class="far fa-paper-plane text-actions"></i> Send
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -90,11 +98,44 @@
 </div>
 @yield('content')
     <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         $('#formFeed').on('submit', function (e) {
             if ($('#content').val().trim() === '') {
                 alert('You must type something!');
                 return false;
             }
-        })
+        });
+
+        $('.btn-like').click(function() {
+            $.ajax({
+                type: "POST",
+                url: `{{route('like.create')}}`,
+                data: {
+                    post_id: $(this).attr('data-post-id')
+                },
+                dataType: "JSON",
+                success: (response) => {
+                    if (response.status === 201 || response.status === 204) {
+                        $(this).find('span#count-like').html(response.data);
+                    }
+
+                    $(this).attr('disabled', false);
+                },
+                beforeSend: () => {
+                    $(this).attr('disabled', true);
+                },
+                error: (error) => {
+                    (this).attr('disabled', false);
+                    console.log(error)
+                    alert('deu ruim')
+                }
+            });
+        });
+
     </script>
 @endsection
