@@ -50,7 +50,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="{{ route('me') }}"> <i class="fas fa-user"></i> {{ __('Me') }}</a>
+                                <a class="nav-link text-white" href="{{ route('me') }}"> <i class="fas fa-user"></i> {{ __('Profile') }}</a>
                             </li>
                         </ul>
                     @endif
@@ -59,15 +59,16 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
+                            @if (strpos(url()->current(), 'login'))
                                 <li class="nav-item">
                                     <a class="nav-link text-white" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+
+                            @endif
+
+                            @if (strpos(url()->current(), 'register'))
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
                         @else

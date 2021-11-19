@@ -62,7 +62,7 @@ class LikeController extends Controller
             $like->save();
 
             return response()->json([
-                'data' => Like::where($payloadLike)->count(),
+                'data' => Like::where(['post_id' => (int) $validator->validated()['post_id']])->count(),
                 'status' => Response::HTTP_CREATED
             ]);
         }
@@ -70,7 +70,7 @@ class LikeController extends Controller
         $hasLikeByUser->delete();
 
         return response()->json([
-            'data' => Like::where($payloadLike)->count(),
+            'data' => Like::where(['post_id' => (int) $validator->validated()['post_id']])->count(),
             'status' => Response::HTTP_NO_CONTENT
         ]);
     }

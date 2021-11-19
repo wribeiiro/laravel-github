@@ -3,15 +3,18 @@
 @section('content')
 <div class="container">
     <div class="d-flex justify-content-center row mt-4 mb-2">
-        <div class="col-md-2">
-            <div class="card p-2 bg-gray">
-                &nbsp;
-                &nbsp;
+        <div class="col-md-3">
+            <div class="card bg-gray mt-3">
+                <div class="card-body text-center">
+                    <img class="rounded-circle text-center" width="100px" src="{{ Auth::user()->social[0]->avatar ?? 'https://avatars.githubusercontent.com/u/47313528?v=4'}}">
+                    <h4 class="text text-center mt-3">{{Auth::user()->name}}</h4>
+                    <small class="text text-center">{{Auth::user()->social[0]->description && Auth::user()->social[0]->social_type == 'github' ? Auth::user()->social[0]->description : 'Developer in continuous progress'}}</small>
+                </div>
             </div>
         </div>
 
-        <div class="col-md-8">
-            <div class="card p-2 bg-gray">
+        <div class="col-md-6">
+            <div class="card p-2 bg-gray mt-3">
                 <div class="card-body">
                     <form id="formFeed" action="{{ route('feed.create') }}" method="post">
                         @csrf
@@ -27,24 +30,7 @@
                     </form>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-2">
-            <div class="card p-2 bg-gray">
-                &nbsp;
-                &nbsp;
-            </div>
-        </div>
-
-        @if ($errors->feed->first('content'))
-            <script>
-                $(document).ready(() => alert('You must type something!'));
-            </script>
-        @endif
-    </div>
-
-    <div class="d-flex justify-content-center row mt-4 mb-5">
-        <div class="col-md-8">
             <div class="feed">
                 @foreach ($posts as $post)
                     <div class="card border-card mt-4 p-y">
@@ -94,6 +80,18 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-3">
+            <div class="card p-2 bg-gray mt-3">
+                &nbsp;
+            </div>
+        </div>
+
+        @if ($errors->feed->first('content'))
+            <script>
+                $(document).ready(() => alert('You must type something!'));
+            </script>
+        @endif
     </div>
 </div>
 @yield('content')
@@ -130,7 +128,7 @@
                     $(this).attr('disabled', true);
                 },
                 error: (error) => {
-                    (this).attr('disabled', false);
+                    $(this).attr('disabled', false);
                     console.log(error)
                     alert('deu ruim')
                 }

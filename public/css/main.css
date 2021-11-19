@@ -19,10 +19,13 @@
 
 body,
 .dropdown-menu,
-.bg-black,
 input {
     background: var(--black) !important;
     font-family: 'DM Sans', sans-serif;
+}
+
+.bg-black {
+    background: var(--dark-gray);
 }
 
 .btn-vue {
@@ -116,11 +119,6 @@ table > tbody {
 
 i {
     cursor: pointer;
-}
-
-body{
-    margin-top:20px;
-    background:#ebeef0;
 }
 
 .img-sm {
