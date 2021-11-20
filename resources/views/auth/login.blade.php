@@ -5,7 +5,7 @@
     <div class="row justify-content-center mt-5">
         <h2 class="text">Welcome again!</h2>
     </div>
-    
+
     <div class="row justify-content-center mt-5">
         <div class="col-md-8 col-12">
             <div class="card border-card">
@@ -44,12 +44,18 @@
                                 <button type="submit" class="btn btn-purple">
                                     {{ __('Login') }}
                                 </button>
+                            </div>
 
+                            <div class="col-md-12 text-center">
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link text-vue" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
+
+                                <a class="btn btn-link text-vue" href="{{ route('register') }}">
+                                    {{ __('Dont have an account?') }}
+                                </a>
                             </div>
                         </div>
 
