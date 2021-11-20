@@ -18,7 +18,9 @@ class GithubAuthService implements SocialAuthInterface
     public function callback()
     {
         try {
-            $githubUser = Socialite::driver('github')->stateless()->user();
+            $githubUser = Socialite::driver('github')
+                ->setScopes(['read:user'])
+                ->stateless()->user();
 
             $findUser = User::with(['social' => function ($q) {
                 $q->where('social_type', '=', 'github');
