@@ -3,32 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Like;
-use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+use App\Validations\LikeStoreValidation;
+use App\Services\LikeService;
 
 class LikeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    private LikeService $likeService;
+
+    public function __construct(LikeService $likeService)
     {
-        //
+        $this->likeService = $likeService;
     }
 
     /**
@@ -39,84 +26,38 @@ class LikeController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'post_id' => 'required|int'
-        ]);
+        $validator = LikeStoreValidation::formValidate($request->all());
 
-        if ($validator->fails()) {
+        if (is_string($validator) && !empty($validator)) {
             return response()->json([
-                'data' => 'Post_id is required',
+                'data' => $validator,
                 'status' => Response::HTTP_BAD_REQUEST
             ]);
         }
 
-        $payloadLike = [
-            'user_id' => Auth::user()->id,
-            'post_id' => (int) $validator->validated()['post_id']
-        ];
+        $hasLikeByUser = $this->likeService->findFirst($validator);
 
-        $hasLikeByUser = Like::where($payloadLike)->first();
+        try {
+            if (empty($hasLikeByUser)) {
+                $this->likeService->save($validator);
 
-        if (empty($hasLikeByUser)) {
-            $like = new Like($payloadLike);
-            $like->save();
+                return response()->json([
+                    'data' => $this->likeService->countLikesByPost($validator['post_id']),
+                    'status' => Response::HTTP_CREATED
+                ]);
+            }
+
+            $hasLikeByUser->delete();
 
             return response()->json([
-                'data' => Like::where(['post_id' => (int) $validator->validated()['post_id']])->count(),
-                'status' => Response::HTTP_CREATED
+                'data' => $this->likeService->countLikesByPost($validator['post_id']),
+                'status' => Response::HTTP_NO_CONTENT
+            ]);
+        } catch (\Exception $error) {
+            return response()->json([
+                'data' => 'Deu ruim chama o amir',
+                'status' => Response::HTTP_INTERNAL_SERVER_ERROR
             ]);
         }
-
-        $hasLikeByUser->delete();
-
-        return response()->json([
-            'data' => Like::where(['post_id' => (int) $validator->validated()['post_id']])->count(),
-            'status' => Response::HTTP_NO_CONTENT
-        ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

@@ -6,9 +6,9 @@
         <div class="col-md-3">
             <div class="card bg-gray mt-3">
                 <div class="card-body text-center">
-                    <img class="rounded-circle text-center" width="100px" src="{{ Auth::user()->social[0]->avatar ?? 'https://avatars.githubusercontent.com/u/47313528?v=4'}}">
+                    <img class="rounded-circle text-center" width="100px" src="{{ count(Auth::user()->social) && Auth::user()->social[0]->avatar ? Auth::user()->social[0]->avatar : 'https://avatars.githubusercontent.com/u/47313528?v=4'}}">
                     <h4 class="text text-center mt-3">{{Auth::user()->name}}</h4>
-                    <small class="text text-center">{{Auth::user()->social[0]->description && Auth::user()->social[0]->social_type == 'github' ? Auth::user()->social[0]->description : 'Developer in continuous progress'}}</small>
+                    <small class="text text-center">{{ count(Auth::user()->social) && Auth::user()->social[0]->social_type == 'github' ? Auth::user()->social[0]->description : 'Developer in continuous progress'}}</small>
                 </div>
             </div>
         </div>
@@ -16,7 +16,7 @@
         <div class="col-md-6">
             <div class="card p-2 bg-gray mt-3">
                 <div class="card-body">
-                    <form id="formFeed" action="{{ route('feed.create') }}" method="post">
+                    <form id="formFeed" action="{{ route('post.store') }}" method="post">
                         @csrf
                         <textarea id="content" name="content" class="form-control" rows="2" placeholder="What are you thinking?" required></textarea>
                         <div class="mar-top clearfix">
@@ -38,10 +38,10 @@
                             <div>
                                 <div class="d-flex flex-row justify-content-between align-items-center pb-2">
                                     <div class="d-flex flex-row align-items-center feed-text">
-                                        <img class="rounded-circle" src="{{$post->user->social[0]->avatar && $post->user->social[0]->social_type == 'github' ? $post->user->social[0]->avatar : 'https://avatars.githubusercontent.com/u/47313528?v=4'}}" width="45">
+                                        <img class="rounded-circle" src="{{ count($post->user->social) && $post->user->social[0]->social_type == 'github' ? $post->user->social[0]->avatar : 'https://avatars.githubusercontent.com/u/47313528?v=4'}}" width="45">
                                         <div class="d-flex flex-column flex-wrap ml-2">
                                             <span class="font-weight-bold">{{$post->user->name}}</span>
-                                            <span class="time text">{{$post->user->social[0]->description && $post->user->social[0]->social_type == 'github' ? $post->user->social[0]->description : 'Developer in continuous progress'}}</span>
+                                            <span class="time text">{{count($post->user->social) && $post->user->social[0]->description && $post->user->social[0]->social_type == 'github' ? $post->user->social[0]->description : 'Developer in continuous progress'}}</span>
                                             <span class="time text">{{$post->created_at->diffForHumans()}}</span>
                                         </div>
                                     </div>
@@ -109,7 +109,7 @@
         $('.btn-like').click(function() {
             $.ajax({
                 type: "POST",
-                url: `{{route('like.create')}}`,
+                url: `{{route('like.store')}}`,
                 data: {
                     post_id: $(this).attr('data-post-id')
                 },

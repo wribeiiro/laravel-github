@@ -20,9 +20,9 @@ Auth::routes();
 
 Route::get('/me', [App\Http\Controllers\MeController::class, 'index'])->name('me');
 Route::get('/feed', [App\Http\Controllers\FeedController::class, 'index'])->name('feed');
-Route::post('/feed/create', [App\Http\Controllers\FeedController::class, 'create'])->name('feed.create');
+Route::post('/post/store', [App\Http\Controllers\PostController::class, 'store'])->name('post.store');
 
-Route::post('/like/create', [App\Http\Controllers\LikeController::class, 'store'])->name('like.create');
+Route::post('/like/store', [App\Http\Controllers\LikeController::class, 'store'])->name('like.store');
 
 Route::get('social/auth/{socialName}', [App\Http\Controllers\SocialAuthController::class, 'auth']);
 Route::get('social/callback/{socialName}', [App\Http\Controllers\SocialAuthController::class, 'callback']);
