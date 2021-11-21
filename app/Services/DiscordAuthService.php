@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Interfaces\SocialAuthInterface;
 use App\Models\{User, SocialUser};
 use Exception;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
 class DiscordAuthService implements SocialAuthInterface
@@ -36,7 +36,7 @@ class DiscordAuthService implements SocialAuthInterface
                 return redirect('/feed');
             }
         } catch (Exception $e) {
-            dd($e);
+            return redirect('/');
         }
     }
 
@@ -53,7 +53,7 @@ class DiscordAuthService implements SocialAuthInterface
                 return redirect('/feed');
             }
         } catch (Exception $e) {
-            dd($e);
+            return redirect('/');
         }
     }
 }

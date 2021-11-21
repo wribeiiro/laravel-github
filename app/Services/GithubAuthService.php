@@ -6,7 +6,7 @@ use App\Interfaces\SocialAuthInterface;
 use App\Models\{User, SocialUser};
 use Laravel\Socialite\Facades\Socialite;
 use Exception;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class GithubAuthService implements SocialAuthInterface
 {
@@ -54,7 +54,7 @@ class GithubAuthService implements SocialAuthInterface
 
             return redirect('/feed');
         } catch (Exception $e) {
-            dd($e);
+            return redirect('/');
         }
     }
 
@@ -71,7 +71,7 @@ class GithubAuthService implements SocialAuthInterface
                 return redirect('/feed');
             }
         } catch (Exception $e) {
-            dd($e);
+            return redirect('/');
         }
     }
 }

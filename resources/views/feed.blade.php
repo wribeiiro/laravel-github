@@ -16,7 +16,7 @@
         <div class="col-md-6">
             <div class="card p-2 bg-gray mt-3">
                 <div class="card-body">
-                    <form id="formFeed" action="{{ route('feed.create') }}" method="post">
+                    <form id="formFeed" action="{{ route('post.store') }}" method="post">
                         @csrf
                         <textarea id="content" name="content" class="form-control" rows="2" placeholder="What are you thinking?" required></textarea>
                         <div class="mar-top clearfix">
@@ -109,7 +109,7 @@
         $('.btn-like').click(function() {
             $.ajax({
                 type: "POST",
-                url: `{{route('like.create')}}`,
+                url: `{{route('like.store')}}`,
                 data: {
                     post_id: $(this).attr('data-post-id')
                 },

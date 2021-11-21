@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\Post;
+use FastRoute\RouteParser\Std;
+use stdClass;
 
 class ExperienceService
 {
@@ -64,5 +66,17 @@ class ExperienceService
     {
         $totalXpNextLevel = self::BASE_NEXT_XP * (pow(2, $this->level() + 1) - 1);
         return $totalXpNextLevel - $this->xp();
+    }
+
+    public function experience(): object
+    {
+        $experience = new stdClass();
+
+        $experience->level = $this->level();
+        $experience->xp = $this->xp();
+        $experience->xpnextlevel = $this->totalXpNextLevel();
+        $experience->progress = $this->calculateProgress();
+
+        return $experience;
     }
 }

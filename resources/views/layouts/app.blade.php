@@ -63,7 +63,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-white" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
-
                             @endif
 
                             @if (strpos(url()->current(), 'register'))

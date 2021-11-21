@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+use App\Services\PostService;
 
 class FeedController extends Controller
 {
+    private PostService $postService;
 
-    public function __construct()
+    public function __construct(PostService $postService)
     {
         $this->middleware('auth');
+
+        $this->postService = $postService;
     }
 
     /**
@@ -22,95 +22,8 @@ class FeedController extends Controller
      */
     public function index()
     {
-        $posts = \App\Models\Post::with(['User', 'User.social', 'Like', 'Comment'])
-            ->orderBy('created_at','DESC')
-            ->paginate(10);
+        $posts = $this->postService->findAll();
 
         return view('feed', compact('posts'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'content' => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('/feed')->withErrors($validator, 'feed');
-        }
-
-        $validated = $validator->validated();
-
-        $post = new Post([
-            'user_id' => Auth::user()->id,
-            'content' => htmlspecialchars($validated['content'], ENT_QUOTES)
-        ]);
-
-        if ($post->save()) {
-            return redirect('/feed');
-        }
-
-        redirect('/feed')->with('alert', 'Deu ruim!');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
