@@ -9,7 +9,7 @@ abstract class AbstractValidation
     public static function validate(
         array $data,
         array $rules
-    ): mixed {
+    ) {
 
         $validator = Validator::make($data, $rules);
 
