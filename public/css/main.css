@@ -17,6 +17,11 @@
     --synth: #ff248a;
 }
 
+.navbar-light .navbar-toggler {
+    color: var(--purple);
+    border-color: var(--purple);
+}
+
 body,
 .dropdown-menu,
 input {
