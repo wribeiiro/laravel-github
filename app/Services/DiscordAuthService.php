@@ -18,7 +18,10 @@ class DiscordAuthService implements SocialAuthInterface
     public function callback()
     {
         try {
-            $discordUser = Socialite::driver('discord')->stateless()->user();
+            $discordUser = Socialite::driver('discord')
+                ->setScopes(['read:user'])
+                ->stateless()->user();
+
             $findUser = User::where('email', $discordUser->email)->first();
 
             if ($findUser) {

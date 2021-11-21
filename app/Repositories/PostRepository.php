@@ -13,7 +13,7 @@ class PostRepository
         $this->post = new Post();
     }
 
-    public function findAll(): mixed
+    public function findAll()
     {
         return $this->post::with(['User', 'User.social', 'Like', 'Comment'])
             ->orderBy('created_at', 'DESC')
