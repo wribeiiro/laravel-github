@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Exceptions\PostNotFoundException;
 use App\Models\Post;
 
 class PostRepository
@@ -27,7 +28,7 @@ class PostRepository
         $post->content = $data['content'];
 
         if (!$post->save()) {
-            throw new \Exception('Deu ruim, chama o amir!');
+            throw new PostNotFoundException('Deu ruim, chama o amir!');
         }
 
         return $post;

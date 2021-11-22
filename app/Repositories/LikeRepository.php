@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Exceptions\LikeNotFoundException;
 use App\Models\Like;
 
 class LikeRepository
@@ -32,7 +33,7 @@ class LikeRepository
         $like->post_id = $data['post_id'];
 
         if (!$like->save()) {
-            throw new \Exception('Deu ruim, chama o amir!');
+            throw new LikeNotFoundException('Deu ruim, chama o amir!');
         }
 
         return $like;
