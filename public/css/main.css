@@ -84,6 +84,10 @@ input {
     border-bottom: 1px solid #9466FF !important;
 }
 
+.border-top-purple {
+    border-top: 1px solid #9466FF !important;
+}
+
 .progress-bar {
     background-color: var(--vue);
     border: solid 1px var(--vue);

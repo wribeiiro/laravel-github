@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use App\Models\Post;
-use FastRoute\RouteParser\Std;
-use stdClass;
 
 class ExperienceService
 {
@@ -70,7 +68,7 @@ class ExperienceService
 
     public function experience(): object
     {
-        $experience = new stdClass();
+        $experience = new \stdClass();
 
         $experience->level = $this->level();
         $experience->xp = $this->xp();
