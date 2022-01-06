@@ -20,7 +20,7 @@ class DiscordAuthServiceFactoryTest extends TestCase
     /**
      * @test
      */
-    public function testShouldBeReturnAnSocialAuthInterface()
+    public function testShouldReturnAnSocialAuthInterface()
     {
         $this->assertInstanceOf(SocialAuthInterface::class, $this->authService);
     }

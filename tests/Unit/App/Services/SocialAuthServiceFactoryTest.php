@@ -21,7 +21,7 @@ class SocialAuthServiceFactoryTest extends TestCase
     /**
      * @test
      */
-    public function testShouldBeReturnAnSocialAuthInterface()
+    public function testShouldReturnAnSocialAuthInterface()
     {
         $factory = $this->factory->getClass('discord');
 
@@ -31,7 +31,7 @@ class SocialAuthServiceFactoryTest extends TestCase
     /**
      * @test
      */
-    public function testShouldBeReturnAException()
+    public function testShouldReturnAException()
     {
         $this->expectException(SocialAuthNotFoundException::class);
         $this->expectExceptionMessage('SocialAuth service not implemented');
