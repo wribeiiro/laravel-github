@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateActivityUsersTable extends Migration
+class CreateMessageUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateActivityUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('activity_users', function (Blueprint $table) {
+        Schema::create('message_users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateActivityUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('activity_users');
+        Schema::dropIfExists('message_users');
     }
 }

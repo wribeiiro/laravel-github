@@ -3,20 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Services\UserService;
+use Illuminate\Support\Facades\Auth;
 
 class MeController extends Controller
 {
     private UserService $userService;
-
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(
-        UserService $userService
-    ) {
+    public function __construct(UserService $userService) {
         $this->middleware('auth');
+
         $this->userService = $userService;
     }
 
@@ -28,8 +27,7 @@ class MeController extends Controller
     public function index()
     {
         $users = $this->userService->findAll();
-        $experience = $this->userService->findMyExperience();
-
-        return view('home', compact('experience', 'users'));
+        $userExperience = $this->userService->experience(Auth::user());
+        return view('home', compact('users', 'userExperience'));
     }
 }

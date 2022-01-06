@@ -3,20 +3,16 @@
 namespace App\Services;
 
 use App\Repositories\UserRepository;
-use App\Services\ExperienceService;
-use Illuminate\Support\Facades\Auth;
 
 class UserService
 {
-    private UserRepository $userRepository;
-    private ExperienceService $experienceService;
+    const EXPERIENCE_TO_UP = 250;
 
-    public function __construct(
-        UserRepository $userRepository,
-        ExperienceService $experienceService
-    ) {
+    private UserRepository $userRepository;
+
+    public function __construct(UserRepository $userRepository) 
+    {
         $this->userRepository = $userRepository;
-        $this->experienceService = $experienceService;
     }
 
     /**
@@ -26,29 +22,37 @@ class UserService
      */
     public function findAll()
     {
-        $usersCollection = collect();
-        foreach ($this->userRepository->findAll() as $user) {
-            $this->experienceService->setUserId($user->id);
-
-            $users = $user;
-            $users['xp'] = $this->experienceService->xp();
-            $usersCollection->push($users);
-        }
-
-        return $usersCollection->sortBy('xp', SORT_REGULAR, true)
+        return $this->userRepository->findAll()
+            ->sortBy('level', SORT_REGULAR, true)
             ->values()
             ->all();
     }
 
-    /**
-     * findMyExperience
-     *
-     * @return object
-     */
-    public function findMyExperience(): object
+    public function increaseExperience(object $user)
     {
-        $this->experienceService->setUserId(Auth::user()->id);
+        $newXp = $user->experience + rand(4, 70);
+        $level = $user->level;
 
-        return $this->experienceService->experience();
+        if ($newXp >= self::EXPERIENCE_TO_UP) {
+            $level = $level + 1;
+            $newXp = 0;
+        }
+
+        $userData['experience'] = $newXp;
+        $userData['level'] = $level;
+        $userData['user_id'] = $user->id;
+
+        return $this->userRepository->increaseExperience($userData);
+    }
+
+    public function experience(object $user): object
+    {
+        $objectUser = new \stdClass();
+        $objectUser->progressLevel = ($user->experience / self::EXPERIENCE_TO_UP) * 100;
+        $objectUser->experience = $user->experience;
+        $objectUser->level = $user->level;
+        $objectUser->experienceToUp = self::EXPERIENCE_TO_UP;
+
+        return $objectUser;
     }
 }

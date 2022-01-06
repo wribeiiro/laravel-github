@@ -20,7 +20,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'experience'
+        'experience',
+        'level'
     ];
 
     /**
@@ -40,6 +41,10 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+    protected $appends = [
+
     ];
 
     public function social()

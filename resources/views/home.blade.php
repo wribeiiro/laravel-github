@@ -24,23 +24,23 @@
                         </div>
 
                         <div class="flex-item">
-                            <h5 class="text">Level {{$experience->level}}</h4>
+                            <h5 class="text">Level {{$userExperience->level}}</h4>
                         </div>
                     </div>
 
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="{{$experience->progress}}"
-                        aria-valuemin="0" aria-valuemax="100" style="width:{{$experience->progress}}%">
-                            <span class="sr-only">{{$experience->progress}}% Complete</span>
+                        <div class="progress-bar" role="progressbar" aria-valuenow="{{$userExperience->progressLevel}}"
+                        aria-valuemin="{{$userExperience->progressLevel}}" aria-valuemax="100" style="width: {{$userExperience->progressLevel}}%">
+                            <span class="sr-only">{{$userExperience->progressLevel}}% Complete</span>
                         </div>
                     </div>
 
                     <div class="d-flex flex-row justify-content-between mt-2">
                         <div class="flex-item">
-                            <h5 class="text">Xp {{$experience->xp}}/{{$experience->xpnextlevel}}</h5>
+                            <h5 class="text">XP {{$userExperience->experience}}/{{$userExperience->experienceToUp}}</h5>
                         </div>
                         <div class="flex-item">
-                            <h5 class="text">{{$experience->progress}}%</h5>
+                            <h5 class="text">{{$userExperience->progressLevel}}%</h5>
                         </div>
                     </div>
                 </div>
@@ -98,17 +98,17 @@
                 <table class="table-sm table table-borderless">
                     <thead>
                         <th>#</th>
-                        <th style="text-align: center">#Position</th>
+                        <th style="text-align: center">#Level</th>
                         <th>#Name</th>
                         <th style="text-align: center">#XP</th>
                     </thead>
                     <tbody>
-                        @foreach($users as $key => $user)
+                        @foreach($users as $user)
                             <tr>
                                 <td><img class="rounded-circle" src="{{$user->social[0]->avatar ?? 'https://avatars.githubusercontent.com/u/47313528?v=4'}}" width="16" alt="avatar"></td>
-                                <td align="center">{{$key + 1}}</td>
+                                <td align="center"> {{$user->level}} </td>
                                 <td>{{$user->name}}</td>
-                                <td align="right">{{$user->xp}}</td>
+                                <td align="right">{{$user->experience}}</td>
                             </tr>
                         @endforeach
                     </tbody>
