@@ -11,7 +11,7 @@ class SocialAuthController extends Controller
     private SocialAuthInterface $authService;
 
     public function __construct(
-        SocialAuthServiceFactory $factoryService,
+        private SocialAuthServiceFactory $factoryService,
         Request $request
     ) {
         $this->authService = $factoryService->getClass($request->route('socialName'));

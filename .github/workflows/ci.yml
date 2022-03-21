@@ -17,4 +17,4 @@ jobs:
         with:
           bootstrap: vendor/autoload.php
           configuration: ./phpunit.xml
-          args: --coverage-text --testdox
+          args: --colors --testdox

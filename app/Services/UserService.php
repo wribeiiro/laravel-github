@@ -8,12 +8,9 @@ class UserService
 {
     const EXPERIENCE_TO_UP = 250;
 
-    private UserRepository $userRepository;
-
-    public function __construct(UserRepository $userRepository) 
-    {
-        $this->userRepository = $userRepository;
-    }
+    public function __construct(
+        private UserRepository $userRepository
+    ) {}
 
     /**
      * findAll

@@ -6,13 +6,10 @@ use App\Services\PostService;
 
 class FeedController extends Controller
 {
-    private PostService $postService;
-
-    public function __construct(PostService $postService)
-    {
+    public function __construct(
+        private PostService $postService
+    ) {
         $this->middleware('auth');
-
-        $this->postService = $postService;
     }
 
     /**

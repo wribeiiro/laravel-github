@@ -7,12 +7,9 @@ use App\Models\Post;
 
 class PostRepository
 {
-    private Post $post;
-
-    public function __construct()
-    {
-        $this->post = new Post();
-    }
+    public function __construct(
+        private Post $post
+    ) {}
 
     public function findAll()
     {

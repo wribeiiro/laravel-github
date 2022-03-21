@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Like;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Validations\LikeStoreValidation;
@@ -10,13 +9,9 @@ use App\Services\LikeService;
 
 class LikeController extends Controller
 {
-
-    private LikeService $likeService;
-
-    public function __construct(LikeService $likeService)
-    {
-        $this->likeService = $likeService;
-    }
+    public function __construct(
+        private LikeService $likeService
+    ) {}
 
     /**
      * Store a newly created resource in storage.

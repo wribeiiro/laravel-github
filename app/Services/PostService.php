@@ -7,13 +7,9 @@ use Illuminate\Support\Facades\Auth;
 
 class PostService
 {
-    private PostRepository $postRepository;
-
     public function __construct(
-        PostRepository $postRepository
-    ) {
-        $this->postRepository = $postRepository;
-    }
+        private PostRepository $postRepository
+    ) {}
 
     /**
      * findAll

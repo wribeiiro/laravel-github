@@ -7,13 +7,9 @@ use Illuminate\Support\Facades\Auth;
 
 class LikeService
 {
-    private LikeRepository $likeRepository;
-
     public function __construct(
-        LikeRepository $likeRepository
-    ) {
-        $this->likeRepository = $likeRepository;
-    }
+        private LikeRepository $likeRepository
+    ) {}
 
     /**
      * findAll

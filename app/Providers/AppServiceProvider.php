@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use App\Interfaces\SocialAuthInterface;
+use App\Services\{GithubAuthService, DiscordAuthService};
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,7 +16,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(
+            SocialAuthInterface::class,
+            GithubAuthService::class
+        );
+
+        $this->app->bind(
+            SocialAuthInterface::class,
+            DiscordAuthService::class
+        );
     }
 
     /**

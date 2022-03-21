@@ -9,14 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-    private PostService $postService;
-    private UserService $userService;
-
-    public function __construct(PostService $postService, UserService $userService)
-    {
-        $this->postService = $postService;
-        $this->userService = $userService;
-    }
+    public function __construct(
+        private PostService $postService, 
+        private UserService $userService
+    ) {}
 
     public function store(Request $request)
     {

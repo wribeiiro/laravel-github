@@ -7,12 +7,9 @@ use App\Models\Like;
 
 class LikeRepository
 {
-    private Like $like;
-
-    public function __construct()
-    {
-        $this->like = new Like();
-    }
+    public function __construct(
+        private Like $like
+    ) {}
 
     public function findFirst(array $data)
     {
@@ -26,6 +23,9 @@ class LikeRepository
             ->paginate(10);
     }
 
+    /**
+     * @throws LikeNotFoundException
+     */
     public function save(array $data)
     {
         $like = $this->like;

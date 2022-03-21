@@ -7,13 +7,14 @@ use Illuminate\Support\Facades\Auth;
 
 class MeController extends Controller
 {
-    private UserService $userService;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(UserService $userService) {
+    public function __construct(
+        private UserService $userService
+    ) {
         $this->middleware('auth');
 
         $this->userService = $userService;

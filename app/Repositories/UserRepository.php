@@ -6,21 +6,18 @@ use App\Models\User;
 
 class UserRepository
 {
-    private User $userModel;
-
-    public function __construct() 
-    {
-        $this->userModel = new User();
-    }
+    public function __construct(
+        private User $user
+    ) {}
 
     public function findAll()
     {
-        return $this->userModel::with(['social'])->get();
+        return $this->user::with(['social'])->get();
     }
 
     public function increaseExperience(array $data)
     {
-        $result = $this->userModel
+        $result = $this->user
             ->where('id', $data['user_id'])
             ->update([
                 'experience' => $data['experience'],
