@@ -30,4 +30,19 @@ class PostRepository
 
         return $post;
     }
+
+    public function destroy(int $postId): bool
+    {
+        $postUser = $this->post::find($postId);
+
+        if ($postUser === null) {
+            throw new PostNotFoundException('Post not found');
+        }
+
+        if ($postUser->user_id != auth()->id()) {
+            throw new \Exception('User does not permission to delete this post');
+        }
+
+        return $postUser->delete();
+    }
 }

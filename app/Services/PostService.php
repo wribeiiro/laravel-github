@@ -36,4 +36,9 @@ class PostService
 
         return $this->postRepository->save($newData);
     }
+
+    public function destroy(int $postId): bool
+    {
+        return $this->postRepository->destroy($postId);
+    }
 }

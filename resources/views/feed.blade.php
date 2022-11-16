@@ -64,9 +64,12 @@
                                 <button type="button" class="btn bg-transparent text btn-actions btn-comment" id="btn-comment" data-post-id="{{$post->id}}">
                                     <i class="fas fa-comments text-actions"></i> Comment
                                 </button>
-                                <button type="button" class="btn bg-transparent text btn-actions btn-share" id="btn-share" data-post-id="{{$post->id}}">
-                                    <i class="fa fa-share text-actions"></i> Share
-                                </button>
+
+                                @if (\Auth::id() === $post->user_id)
+                                    <button type="button" class="btn bg-transparent text btn-actions btn-delete" id="btn-delete" data-post-id="{{$post->id}}">
+                                        <i class="fa fa-trash text-actions"></i> Delete
+                                    </button>
+                                @endif
                             </div>
 
                             <div class="comments-{{$post->id}}" style="display: none">
@@ -177,6 +180,29 @@
             } else {
                 comments.css('display', 'block');
             }
+        });
+
+        $('.btn-delete').click(function() {
+            $.ajax({
+                type: "DELETE",
+                url: `{{route('post.destroy')}}`,
+                data: {
+                    post_id: $(this).attr('data-post-id')
+                },
+                dataType: "JSON",
+                success: (response) => {
+                    $(this).parents('.border-card')[0].remove();
+                    $(this).attr('disabled', false);
+                },
+                beforeSend: () => {
+                    $(this).attr('disabled', true);
+                },
+                error: (error) => {
+                    $(this).attr('disabled', false);
+                    console.log(error)
+                    alert('deu ruim')
+                }
+            });
         });
 
     </script>

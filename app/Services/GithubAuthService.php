@@ -21,6 +21,8 @@ class GithubAuthService implements SocialAuthInterface
             $githubUser = Socialite::driver('github')
                 ->setScopes(['read:user'])
                 ->stateless()->user();
+                
+            $githubUser->email = $githubUser->email ?? $githubUser->name . '@devsoftomorrow.com';
 
             $findUser = User::with(['social' => function ($q) {
                 $q->where('social_type', '=', 'github');
@@ -54,6 +56,8 @@ class GithubAuthService implements SocialAuthInterface
 
             return redirect('/feed');
         } catch (Exception $e) {
+            dd($e);
+            
             return redirect('/');
         }
     }

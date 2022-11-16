@@ -21,6 +21,7 @@ Auth::routes();
 Route::get('/me', [App\Http\Controllers\MeController::class, 'index'])->name('me');
 Route::get('/feed', [App\Http\Controllers\FeedController::class, 'index'])->name('feed');
 Route::post('/post/store', [App\Http\Controllers\PostController::class, 'store'])->name('post.store');
+Route::delete('/post/destroy', [App\Http\Controllers\PostController::class, 'destroy'])->name('post.destroy');
 
 Route::post('/like/store', [App\Http\Controllers\LikeController::class, 'store'])->name('like.store');
 Route::post('/comment/store', [App\Http\Controllers\CommentController::class, 'store'])->name('comment.store');

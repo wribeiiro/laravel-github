@@ -27,7 +27,7 @@ class LikeController extends Controller
             return response()->json([
                 'data' => $validator,
                 'status' => Response::HTTP_BAD_REQUEST
-            ]);
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         $hasLikeByUser = $this->likeService->findFirst($validator);
@@ -39,7 +39,7 @@ class LikeController extends Controller
                 return response()->json([
                     'data' => $this->likeService->countLikesByPost($validator['post_id']),
                     'status' => Response::HTTP_CREATED
-                ]);
+                ], Response::HTTP_CREATED);
             }
 
             $hasLikeByUser->delete();
@@ -47,12 +47,12 @@ class LikeController extends Controller
             return response()->json([
                 'data' => $this->likeService->countLikesByPost($validator['post_id']),
                 'status' => Response::HTTP_NO_CONTENT
-            ]);
+            ], Response::HTTP_NO_CONTENT);
         } catch (\Exception $error) {
             return response()->json([
                 'data' => 'Deu ruim chama o amir',
                 'status' => Response::HTTP_INTERNAL_SERVER_ERROR
-            ]);
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }
